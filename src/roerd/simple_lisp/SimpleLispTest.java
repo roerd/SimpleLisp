@@ -11,7 +11,7 @@ public class SimpleLispTest {
 
     @Test
     public void testEval() throws Exception {
-        LispObject o =
+        LispObject expr =
                 new LispList(
                         _lisp.getOperator("+"),
                         new LispList(
@@ -32,12 +32,14 @@ public class SimpleLispTest {
                                 new LispNumber(3),
                                 new LispNumber(4)));
 
-        assertEquals(26.0, o.eval().getValue());
+        assertEquals(26.0, expr.eval().getValue());
     }
 
     @Test
     public void testReadEval() throws Exception {
         String s = "( + (-6) (+ 3 2 1) (/ 10 5) (* 2 3 4))";
-        assertEquals(26.0, _lisp.read(new StringReader(s)).eval().getValue());
+        LispObject expr = _lisp.read(new StringReader(s));
+
+        assertEquals(26.0, expr.eval().getValue());
     }
 }
